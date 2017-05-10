@@ -33,6 +33,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import io.realm.Realm;
+import io.realm.RealmQuery;
+import io.realm.RealmResults;
+
 public class MainActivity extends AppCompatActivity {
 
     TextView saludos;
@@ -56,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
 
         saludos.setText("Hola " + getEmail());
 
+        addDummyPhotoToDB();
+
         createDummyReciclerView();
 
         creatFolder();
@@ -77,14 +83,46 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void addDummyPhotoToDB() {
+
+        Realm realm = Realm.getDefaultInstance();
+        Log.d("realms path:", "realms path: " + realm.getPath());
+
+        realm.beginTransaction();
+            Photo p1 = realm.createObject(Photo.class);
+            p1.setId(1);
+            p1.setImagen(R.drawable.foto1);
+            p1.setNombre("Mujer");
+            p1.setVisitas(0);
+        realm.commitTransaction();
+
+        realm.beginTransaction();
+            Photo p2 = realm.createObject(Photo.class);
+            p2.setId(2);
+            p2.setImagen(R.drawable.foto2);
+            p2.setNombre("Peruano Nazi");
+            p2.setVisitas(0);
+        realm.commitTransaction();
+
+        realm.beginTransaction();
+            Photo p3 = realm.createObject(Photo.class);
+            p3.setId(3);
+            p3.setImagen(R.drawable.foto3);
+            p3.setNombre("Virgen");
+            p3.setVisitas(0);
+        realm.commitTransaction();
+
+    }
+
     private void createDummyReciclerView() {
 
         List items = new ArrayList();
 
-        items.add(new Photo(R.drawable.foto1, "Mujer", 230));
-        items.add(new Photo(R.drawable.foto2, "Peruano Nazi", 3425));
-        items.add(new Photo(R.drawable.foto3, "Virgen", 456));
-        
+        Realm realms = Realm.getDefaultInstance();
+        RealmQuery<Photo> resultPhoto = realms.where(Photo.class).equalTo("id",2);
+
+        items.add(resultPhoto.findFirst());
+
 
         // Obtener el Recycler
         recycler = (RecyclerView) findViewById(R.id.reciclador);
