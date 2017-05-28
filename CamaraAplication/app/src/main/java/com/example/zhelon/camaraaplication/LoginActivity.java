@@ -48,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void startCamaraActivity() {
-        Intent intent = new Intent(getBaseContext(), MainActivity.class);
+        Intent intent = new Intent(getBaseContext(), TabActivity.class);
         Toast.makeText(getApplicationContext(),"Ingresando...", Toast.LENGTH_LONG).show();
         finish();
         startActivity(intent);

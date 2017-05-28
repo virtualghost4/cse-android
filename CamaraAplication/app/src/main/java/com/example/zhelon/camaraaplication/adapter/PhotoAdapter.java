@@ -1,5 +1,7 @@
 package com.example.zhelon.camaraaplication.adapter;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,8 +49,15 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
 
     @Override
     public void onBindViewHolder(PhotoViewHolder viewHolder, int i) {
-        viewHolder.imagen.setImageResource(items.get(i).getImagen());
+        viewHolder.imagen.setImageBitmap(toBitmap(items.get(i).getFoto()));
         viewHolder.nombre.setText(items.get(i).getNombre());
         viewHolder.visitas.setText("Visitas:"+String.valueOf(items.get(i).getVisitas()));
+    }
+
+    private Bitmap toBitmap(byte[] foto) {
+
+       Bitmap bmp = BitmapFactory.decodeByteArray(foto, 0, foto.length);
+        return Bitmap.createScaledBitmap(bmp, 100, 120, false);
+
     }
 }

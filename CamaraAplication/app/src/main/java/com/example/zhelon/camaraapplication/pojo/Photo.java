@@ -11,13 +11,21 @@ import io.realm.annotations.Required;
 public class Photo extends RealmObject {
 
         @PrimaryKey
-        private int id;
-        private int imagen;
+        private String id;
+        private byte[] foto;
         @Required
         private String nombre;
         private int visitas;
 
-        public String getNombre() {
+    public byte[] getFoto() {
+        return foto;
+    }
+
+    public void setFoto(byte[] foto) {
+        this.foto = foto;
+    }
+
+    public String getNombre() {
             return nombre;
         }
 
@@ -25,9 +33,6 @@ public class Photo extends RealmObject {
             return visitas;
         }
 
-        public int getImagen() {
-            return imagen;
-        }
 
     public void setVisitas(int visitas){
         this.visitas = visitas;
@@ -37,15 +42,12 @@ public class Photo extends RealmObject {
         this.nombre = nombre;
     }
 
-    public void setImagen(int imagen) {
-        this.imagen = imagen;
-    }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 }
