@@ -4,20 +4,24 @@
     android:layout_height="match_parent"
     tools:context="com.example.zhelon.camaraaplication.fragment.FormFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="30dp"
         android:text="Ingrese nombre:" />
 
     <EditText
         android:id="@+id/user_name"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="30dp" />
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="30dp"
         android:text="Tome una Foto"/>
 
     <Button
@@ -27,4 +31,10 @@
         android:text="Abrir camara"
         />
 
+    <Button
+        android:text="Guardar"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:id="@+id/save"/>
+</LinearLayout>
 </FrameLayout>

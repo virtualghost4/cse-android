@@ -21,17 +21,24 @@ import android.widget.Toast;
 import com.example.zhelon.camaraaplication.MainActivity;
 import com.example.zhelon.camaraaplication.R;
 import com.example.zhelon.camaraaplication.TabActivity;
+import com.example.zhelon.camaraapplication.pojo.Photo;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.UUID;
+
+import io.realm.Realm;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class FormFragment extends Fragment {
 
+    EditText mUserName;
+    Button mGuardar, mOpenCamara;
+    byte[] foto;
 
     public FormFragment() {
         // Required empty public constructor
@@ -43,8 +50,25 @@ public class FormFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_form, container, false);
-        EditText mUserName = (EditText) view.findViewById(R.id.user_name);
-        Button mOpenCamara = (Button) view.findViewById(R.id.open_camara);
+        mUserName = (EditText) view.findViewById(R.id.user_name);
+        mGuardar = (Button) view.findViewById(R.id.save);
+
+        mGuardar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Realm realm = Realm.getDefaultInstance();
+
+                realm.beginTransaction();
+                Photo p1 = realm.createObject(Photo.class);
+                p1.setId(UUID.randomUUID().toString());
+                p1.setFoto(foto);
+                p1.setNombre(mUserName.getText().toString());
+                p1.setVisitas(0);
+                realm.commitTransaction();
+            }
+        });
+
+        mOpenCamara = (Button) view.findViewById(R.id.open_camara);
         mOpenCamara.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,7 +77,8 @@ public class FormFragment extends Fragment {
                     ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 110);
                 } else {
                     Intent it = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(it, 200);                }
+                    startActivityForResult(it, 200);
+                }
 
             }
         });
@@ -68,27 +93,11 @@ public class FormFragment extends Fragment {
 
         if (requestCode == 200) {
 
-            //Obtenemos la foto, viene dentro de un bundle como "data"
             Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
             ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-            //La imagen se comprime, usando formato JPEG, calidad y el outputstream
             thumbnail.compress(Bitmap.CompressFormat.JPEG,  100, bytes);
-            //Se crea un archivo vacio y se le da el nombre
-            // File file = new File(Environment.getExternalStorageDirectory()+File.separator + "image.jpg");
-            File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)+"/camaraapp/"+"image.jpg");
+            foto = bytes.toByteArray();
 
-            try {
-                file.createNewFile();
-                FileOutputStream fo = new FileOutputStream(file);
-                //Le pasamos la foto en bytearray al archivo recien creado
-                fo.write(bytes.toByteArray());
-                fo.close();
-                Toast.makeText(getActivity().getApplicationContext(), "Guardando foto...", Toast.LENGTH_SHORT).show();
-            } catch (IOException e) {
-                Log.e("MUrio", e.getMessage());
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
         }
     }
 

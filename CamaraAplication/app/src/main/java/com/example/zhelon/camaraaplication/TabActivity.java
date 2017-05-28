@@ -48,9 +48,6 @@ public class TabActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab);
 
-        addDummyPhotoToDB();
-
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
@@ -176,34 +173,4 @@ public class TabActivity extends AppCompatActivity {
         }
     }
 
-    private void addDummyPhotoToDB() {
-
-        Realm realm = Realm.getDefaultInstance();
-        Log.d("realms path:", "realms path: " + realm.getPath());
-
-        realm.beginTransaction();
-        Photo p1 = realm.createObject(Photo.class);
-        p1.setId(1);
-        p1.setImagen(R.drawable.foto1);
-        p1.setNombre("Mujer");
-        p1.setVisitas(0);
-        realm.commitTransaction();
-
-        realm.beginTransaction();
-        Photo p2 = realm.createObject(Photo.class);
-        p2.setId(2);
-        p2.setImagen(R.drawable.foto2);
-        p2.setNombre("Peruano Nazi");
-        p2.setVisitas(0);
-        realm.commitTransaction();
-
-        realm.beginTransaction();
-        Photo p3 = realm.createObject(Photo.class);
-        p3.setId(3);
-        p3.setImagen(R.drawable.foto3);
-        p3.setNombre("Virgen");
-        p3.setVisitas(0);
-        realm.commitTransaction();
-
-    }
 }

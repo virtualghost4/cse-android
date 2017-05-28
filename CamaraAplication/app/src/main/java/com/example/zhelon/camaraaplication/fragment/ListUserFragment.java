@@ -19,6 +19,7 @@ import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmQuery;
+import io.realm.RealmResults;
 
 
 public class ListUserFragment extends Fragment {
@@ -63,9 +64,9 @@ public class ListUserFragment extends Fragment {
         List items = new ArrayList();
 
         Realm realms = Realm.getDefaultInstance();
-        RealmQuery<Photo> resultPhoto = realms.where(Photo.class).equalTo("id",2);
+        RealmResults<Photo> resultPhoto = realms.where(Photo.class).findAll();
 
-        items.add(resultPhoto.findFirst());
+        items.addAll(resultPhoto);
 
 
         // Obtener el Recycler
