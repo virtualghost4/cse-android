@@ -1,17 +1,28 @@
 package com.example.zhelon.instagramcseapplication.pojo;
 
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+import io.realm.annotations.Required;
+
 /**
  * Created by zhelon on 23-11-17.
  */
 
-public class Photo {
+public class Photo extends RealmObject {
 
+    @PrimaryKey
+    private String id;
+
+    @Required
     private byte[] image;
     private String comment;
 
-    public Photo(byte[] image, String comment) {
-        this.image = image;
-        this.comment = comment;
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getComment() {
