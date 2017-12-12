@@ -57,7 +57,6 @@ public class FormFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Realm realm = Realm.getDefaultInstance();
-
                 realm.beginTransaction();
                 Photo p1 = realm.createObject(Photo.class);
                 p1.setId(UUID.randomUUID().toString());
