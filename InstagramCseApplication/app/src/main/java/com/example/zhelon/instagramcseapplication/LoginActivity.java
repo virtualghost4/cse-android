@@ -21,7 +21,7 @@ public class LoginActivity extends AppCompatActivity {
 
         if(isLogged()){
 
-            Intent i = new Intent(getApplicationContext(), MainActivity.class);
+            Intent i = new Intent(getApplicationContext(), MainFragmentActivity.class);
             startActivity(i);
             finish();
 
@@ -40,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 bundle.putString("Name", username.getText().toString());
 
-                Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                Intent i = new Intent(getApplicationContext(), MainFragmentActivity.class);
                 i.putExtras(bundle);
 
 

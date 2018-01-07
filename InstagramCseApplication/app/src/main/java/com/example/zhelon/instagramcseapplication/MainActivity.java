@@ -99,7 +99,6 @@ public class MainActivity extends AppCompatActivity {
 
         return result;
 
-
     }
 
     @Override
